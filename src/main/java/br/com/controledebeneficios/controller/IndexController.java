@@ -9,12 +9,22 @@ import br.com.caelum.vraptor.Result;
 @Controller
 public class IndexController {
 
-	@Inject
 	private Result result;
+
+	@Inject
+	public IndexController(Result result) {
+		this.result = result;
+	}
+
+	/**
+	 * @deprecated CDI eyes only
+	 */
+	public IndexController() {
+	}
 	
 	@Path("/index")
 	public void index() {
-		result.include("teste", "VRaptor is Running...");
+		result.include("teste", "VRaptor is Working...");
 	}
 	
 }

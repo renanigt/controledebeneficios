@@ -1,7 +1,5 @@
 package br.com.controledebeneficios.controller;
 
-import javax.inject.Inject;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +9,6 @@ import br.com.caelum.vraptor.util.test.MockResult;
 
 public class IndexControllerTest {
 
-	@Inject
 	private Result result;
 	private IndexController controller;
 	

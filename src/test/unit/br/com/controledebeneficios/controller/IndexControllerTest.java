@@ -4,12 +4,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.util.test.MockResult;
 
 public class IndexControllerTest {
 
-	private Result result;
+	private MockResult result;
 	private IndexController controller;
 	
 	@Before
@@ -23,6 +22,7 @@ public class IndexControllerTest {
 		controller.index();
 		
 		Assert.assertTrue(result.included().containsKey("success"));
+		Assert.assertEquals("VRaptor is Working!", result.included("success"));
 	}
 	
 }

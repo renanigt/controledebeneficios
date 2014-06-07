@@ -9,7 +9,7 @@ import br.com.caelum.vraptor.Result;
 @Controller
 public class IndexController {
 
-	private Result result;
+	private final Result result;
 
 	@Inject
 	public IndexController(Result result) {
@@ -20,6 +20,7 @@ public class IndexController {
 	 * @deprecated CDI eyes only
 	 */
 	public IndexController() {
+		this(null);
 	}
 	
 	@Path("/index")

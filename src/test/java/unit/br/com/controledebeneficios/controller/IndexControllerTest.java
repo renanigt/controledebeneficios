@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.vraptor.util.test.MockResult;
+import br.com.controledebeneficios.controller.IndexController;
 
 public class IndexControllerTest {
 

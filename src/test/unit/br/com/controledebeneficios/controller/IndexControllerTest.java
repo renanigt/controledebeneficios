@@ -1,6 +1,9 @@
 package br.com.controledebeneficios.controller;
 
-import org.junit.Assert;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,8 +24,8 @@ public class IndexControllerTest {
 	public void shouldHaveSuccessMessage() {
 		controller.index();
 		
-		Assert.assertTrue(result.included().containsKey("success"));
-		Assert.assertEquals("VRaptor is Working!", result.included("success"));
+		assertTrue(result.included().containsKey("success"));
+		assertThat(result.included("success").toString(), is("VRaptor is Working!"));
 	}
 	
 }

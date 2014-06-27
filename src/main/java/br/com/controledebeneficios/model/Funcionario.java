@@ -3,13 +3,22 @@ package br.com.controledebeneficios.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Funcionario {
 
+	@Id
 	private Integer matricula;
 	private String nome;
 	private Date dataNascimento;
 	private String cargo;
+	@OneToOne
 	private Endereco endereco;
+	@OneToMany
 	private List<Beneficio> beneficios;
 	private Integer pontos;
 	private Integer saldo;

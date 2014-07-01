@@ -5,7 +5,7 @@
       http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0">
 
-	<persistence-unit name="persistence-test">
+	<persistence-unit name="default-test">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		
 		<properties>

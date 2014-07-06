@@ -20,7 +20,6 @@ public class UsuarioServiceTest {
 		return ShrinkWrap.create(JavaArchive.class)
 				.addClass(Usuario.class)
 				.addClass(UsuarioService.class)
-				.addClass(UsuarioService.class)
 				.addClass(EntityManagerFactoryCreator.class)
 				.addAsResource(new File("src/test/resources/META-INF/persistence-test.xml"),
 						"persistence.xml")

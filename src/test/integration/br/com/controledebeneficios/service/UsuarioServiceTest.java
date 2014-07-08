@@ -47,7 +47,7 @@ public class UsuarioServiceTest {
 	}
 	
 	@Rule
-	public TransactionRule rule = new TransactionRule(transaction, manager);
+	public TransactionRule transactionRule = new TransactionRule(transaction, manager);
 	
 	@Test
 	public void deveriaSalvarUsuario() {

@@ -1,4 +1,5 @@
 Controle de Benefícios
 ======================
+Sistema como o intuito de um maior aprofundamento no VRaptor 4.
 
-Sistema para que funcionários de uma empresa possam decidir como distribuir seus pontos de Benefícios. Utilizando VRaptor4 para um aprofundamento na nova versão do VRaptor.
+Sistema para que funcionários de uma empresa possam decidir como distribuir seus pontos de Benefícios.

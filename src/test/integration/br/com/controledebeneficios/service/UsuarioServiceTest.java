@@ -11,15 +11,15 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import br.com.controledebeneficios.model.Usuario;
+import br.com.controledebeneficios.rule.TransactionRule;
 
 @RunWith(Arquillian.class)
 public class UsuarioServiceTest {
@@ -28,7 +28,7 @@ public class UsuarioServiceTest {
 	private static EntityManagerFactory factory;
 	private static EntityTransaction transaction;
 	
-	private UsuarioService service;
+	private static UsuarioService service;
 	
 	@Deployment
 	public static JavaArchive createDeployment() {
@@ -42,26 +42,21 @@ public class UsuarioServiceTest {
 		factory = Persistence.createEntityManagerFactory("default-test");
 		manager = factory.createEntityManager();
 		transaction = manager.getTransaction();
-	}
-	
-	@Before
-	public void setUp() {
-		deleteData();
-		startTransaction();
-		
+
 		service = new UsuarioService(manager);
 	}
-
+	
+	@Rule
+	public TransactionRule rule = new TransactionRule(transaction, manager);
+	
 	@Test
 	public void deveriaSalvarUsuario() {
 		Usuario usuario = createUsuario();
 		service.salvar(usuario);
 		
-		commitTransaction();
-		
 		Assert.assertEquals(1, service.lista().size());
 	}
-	
+
 	private Usuario createUsuario() {
 		Usuario usuario = new Usuario();
 		usuario.setLogin("renanigt");
@@ -74,21 +69,6 @@ public class UsuarioServiceTest {
 	public static void closeEntityManager() {
 		manager.close();
 		factory.close();
-	}
-	
-	
-	private void startTransaction() {
-		transaction.begin();
-	}
-
-	private void deleteData() {
-		startTransaction();
-		manager.createQuery("delete from Usuario").executeUpdate();
-		commitTransaction();
-	}
-
-	private void commitTransaction() {
-		transaction.commit();
 	}
 	
 }

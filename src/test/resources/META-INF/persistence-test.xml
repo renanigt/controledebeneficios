@@ -8,6 +8,8 @@
 	<persistence-unit name="default-test">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		
+		<class>br.com.controledebeneficios.model.Usuario</class>
+		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/controledebeneficios"/>

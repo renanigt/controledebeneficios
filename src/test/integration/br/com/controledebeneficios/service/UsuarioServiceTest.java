@@ -11,15 +11,14 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExternalResource;
 import org.junit.runner.RunWith;
 
 import br.com.controledebeneficios.model.Usuario;
-import br.com.controledebeneficios.rule.TransactionRule;
 
 @RunWith(Arquillian.class)
 public class UsuarioServiceTest {
@@ -40,14 +39,46 @@ public class UsuarioServiceTest {
 	@BeforeClass
 	public static void configure() {
 		factory = Persistence.createEntityManagerFactory("default-test");
-		manager = factory.createEntityManager();
-		transaction = manager.getTransaction();
-
-		service = new UsuarioService(manager);
 	}
-	
+
 	@Rule
-	public TransactionRule transactionRule = new TransactionRule(transaction, manager);
+	public ExternalResource resource = new ExternalResource() {
+		@Override
+	    protected void before() throws Throwable {
+			manager = factory.createEntityManager();
+			transaction = manager.getTransaction();
+			
+			service = new UsuarioService(manager);
+			
+			deleteData();
+			startTransaction();
+	    };
+
+	    @Override
+	    protected void after() {
+	    	if(transaction.isActive()) {
+	    		transaction.rollback();
+	    	}
+	    	
+	    	if(manager.isOpen()) {
+	    		manager.close();
+	    	}
+	    	
+	    	if(factory.isOpen()) {
+	    		factory.close();
+	    	}
+	    };
+	    
+	    private void startTransaction() {
+			transaction.begin();
+		}
+
+		private void deleteData() {
+			startTransaction();
+			manager.createQuery("delete from Usuario").executeUpdate();
+			transaction.commit();
+		}
+	};
 	
 	@Test
 	public void deveriaSalvarUsuario() {
@@ -63,12 +94,6 @@ public class UsuarioServiceTest {
 		usuario.setSenha("teste123");
 		
 		return usuario;
-	}
-	
-	@AfterClass
-	public static void closeEntityManager() {
-		manager.close();
-		factory.close();
 	}
 	
 }

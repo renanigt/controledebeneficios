@@ -25,14 +25,6 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 		assertThat(service.lista().size(), is(1));
 	}
 
-	@Test
-	public void deveriaSalvarUsuario2() {
-		Usuario usuario = createUsuario();
-		service.salvar(usuario);
-		
-		assertThat(service.lista().size(), is(1));
-	}
-
 	private Usuario createUsuario() {
 		Usuario usuario = new Usuario();
 		usuario.setLogin("renanigt");

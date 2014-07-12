@@ -31,12 +31,12 @@ public class DataBaseTestCase {
 	@After
 	public void afterDataBase() {
 		if(transaction.isActive()) {
-    		transaction.rollback();
-    	}
+			transaction.rollback();
+		}
     	
-    	if(manager.isOpen()) {
-    		manager.close();
-    	}
+		if(manager.isOpen()) {
+			manager.close();
+		}
 	}
 	
 	@AfterClass

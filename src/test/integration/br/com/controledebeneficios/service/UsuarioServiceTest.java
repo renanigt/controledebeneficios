@@ -47,7 +47,7 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 	private void dadosIniciais() {
 		Usuario usuario1 = new UsuarioBuilder().comLogin("fulano").comSenha("123teste").build();
 		Usuario usuario2 = new UsuarioBuilder().comLogin("cicrano").comSenha("cicrano123").build();
-		Usuario usuario3 = new UsuarioBuilder().comLogin("cicrano").comSenha("cicrano123").build();
+		Usuario usuario3 = new UsuarioBuilder().comLogin("beltrano").comSenha("beltrano123").build();
 		
 		List<Usuario> usuarios = Arrays.asList(usuario1, usuario2, usuario3);
 		

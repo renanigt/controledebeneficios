@@ -1,6 +1,8 @@
 package br.com.controledebeneficios.service;
 
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
@@ -45,7 +47,7 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 		Usuario usuarioRetornado = service.pesquisaPorId(usuario.getId());
 		
 		assertThat(service.lista().size(), is(4));
-		assertThat(usuarioRetornado, is(Matchers.notNullValue()));
+		assertThat(usuarioRetornado, is(notNullValue()));
 		assertThat(usuarioRetornado.getLogin(), is("renanigt"));
 		assertThat(usuarioRetornado.getSenha(), is("teste123"));
 	}
@@ -57,7 +59,7 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 		
 		service.atualiza(usuario);
 		
-		assertThat(usuario, is(Matchers.notNullValue()));
+		assertThat(usuario, is(notNullValue()));
 		assertThat(usuario.getLogin(), is("fulano"));
 		assertThat(usuario.getSenha(), is("123456"));
 	}
@@ -71,7 +73,7 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 		Usuario usuarioRetornado = service.pesquisaPorId(usuario.getId());
 		
 		assertThat(service.lista().size(), is(2));
-		assertThat(usuarioRetornado, is(Matchers.nullValue()));
+		assertThat(usuarioRetornado, is(nullValue()));
 	}
 
 	@Test

@@ -33,6 +33,7 @@ public class UsuarioService {
 		manager.remove(usuario);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Usuario> lista() {
 		String hql = "from Usuario order by login";
 		

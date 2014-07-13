@@ -19,9 +19,9 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 
 	private UsuarioService service;
 	
-	private Usuario usuarioFulano = new UsuarioBuilder().comLogin("fulano").comSenha("123teste").build();
-	private Usuario usuarioCicrano = new UsuarioBuilder().comLogin("cicrano").comSenha("cicrano123").build();
-	private Usuario usuarioBeltrano = new UsuarioBuilder().comLogin("beltrano").comSenha("beltrano123").build();
+	private Usuario usuarioFulano;
+	private Usuario usuarioCicrano;
+	private Usuario usuarioBeltrano;
 	
 	@Before
 	public void setUp() {
@@ -82,6 +82,10 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 	}
 	
 	private void dadosIniciais() {
+		usuarioFulano = new UsuarioBuilder().comLogin("fulano").comSenha("123teste").build();
+		usuarioCicrano = new UsuarioBuilder().comLogin("cicrano").comSenha("cicrano123").build();
+		usuarioBeltrano = new UsuarioBuilder().comLogin("beltrano").comSenha("beltrano123").build();
+		
 		List<Usuario> usuarios = Arrays.asList(usuarioFulano, usuarioCicrano, usuarioBeltrano);
 		
 		for(Usuario usuario: usuarios) {

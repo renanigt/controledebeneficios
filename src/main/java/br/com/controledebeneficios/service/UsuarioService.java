@@ -17,8 +17,20 @@ public class UsuarioService {
 		this.manager = manager;
 	}
 
+	public Usuario pesquisaPorId(Integer id) {
+		return manager.find(Usuario.class, id);
+	}
+
 	public void salvar(Usuario usuario) {
 		manager.persist(usuario);
+	}
+	
+	public void atualiza(Usuario usuario) {
+		manager.merge(usuario);
+	}
+	
+	public void delete(Usuario usuario) {
+		manager.remove(usuario);
 	}
 	
 	public List<Usuario> lista() {

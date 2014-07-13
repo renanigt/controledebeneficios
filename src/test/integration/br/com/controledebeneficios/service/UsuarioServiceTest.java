@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 import java.util.Arrays;
 import java.util.List;
 
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,6 +17,10 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 
 	private UsuarioService service;
 	
+	private Usuario usuarioFulano = new UsuarioBuilder().comLogin("fulano").comSenha("123teste").build();
+	private Usuario usuarioCicrano = new UsuarioBuilder().comLogin("cicrano").comSenha("cicrano123").build();
+	private Usuario usuarioBeltrano = new UsuarioBuilder().comLogin("beltrano").comSenha("beltrano123").build();
+	
 	@Before
 	public void setUp() {
 		service = new UsuarioService(manager);
@@ -24,32 +29,58 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 	}
 	
 	@Test
-	public void deveriaListarTodosOsUsuarios() {
-		assertThat(service.lista().size(), is(3));
+	public void deveriaPesquisarPorId() {
+		Usuario usuario = service.pesquisaPorId(usuarioFulano.getId());
+		
+		assertThat(usuario, is(Matchers.notNullValue()));
+		assertThat(usuario.getLogin(), is("fulano"));
+		assertThat(usuario.getSenha(), is("123teste"));
+	}
+	
+	@Test
+	public void deveriaSalvarUsuario() {
+		Usuario usuario = new UsuarioBuilder().comLogin("renanigt").comSenha("teste123").build();
+		service.salvar(usuario);
+		
+		Usuario usuarioRetornado = service.pesquisaPorId(usuario.getId());
+		
+		assertThat(service.lista().size(), is(4));
+		assertThat(usuarioRetornado, is(Matchers.notNullValue()));
+		assertThat(usuarioRetornado.getLogin(), is("renanigt"));
+		assertThat(usuarioRetornado.getSenha(), is("teste123"));
 	}
 
 	@Test
-	public void deveriaSalvarUsuario() {
-		Usuario usuario = createUsuario();
-		service.salvar(usuario);
+	public void deveriaAtualizarUsuario() {
+		Usuario usuario = service.pesquisaPorId(usuarioFulano.getId());
+		usuario.setSenha("123456");
 		
-		assertThat(service.lista().size(), is(4));
+		service.atualiza(usuario);
+		
+		assertThat(usuario, is(Matchers.notNullValue()));
+		assertThat(usuario.getLogin(), is("fulano"));
+		assertThat(usuario.getSenha(), is("123456"));
+	}
+	
+	@Test
+	public void deveriaRemoverUsuario() {
+		Usuario usuario = service.pesquisaPorId(usuarioFulano.getId());
+
+		service.delete(usuarioFulano);
+		
+		Usuario usuarioRetornado = service.pesquisaPorId(usuario.getId());
+		
+		assertThat(service.lista().size(), is(2));
+		assertThat(usuarioRetornado, is(Matchers.nullValue()));
 	}
 
-	private Usuario createUsuario() {
-		Usuario usuario = new Usuario();
-		usuario.setLogin("renanigt");
-		usuario.setSenha("teste123");
-		
-		return usuario;
+	@Test
+	public void deveriaListarTodosOsUsuarios() {
+		assertThat(service.lista().size(), is(3));
 	}
 	
 	private void dadosIniciais() {
-		Usuario usuario1 = new UsuarioBuilder().comLogin("fulano").comSenha("123teste").build();
-		Usuario usuario2 = new UsuarioBuilder().comLogin("cicrano").comSenha("cicrano123").build();
-		Usuario usuario3 = new UsuarioBuilder().comLogin("beltrano").comSenha("beltrano123").build();
-		
-		List<Usuario> usuarios = Arrays.asList(usuario1, usuario2, usuario3);
+		List<Usuario> usuarios = Arrays.asList(usuarioFulano, usuarioCicrano, usuarioBeltrano);
 		
 		for(Usuario usuario: usuarios) {
 			manager.persist(usuario);

@@ -85,6 +85,8 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 	}
 	
 	private void dadosIniciais() {
+		manager.createQuery("delete from Usuario").executeUpdate();
+		
 		usuarioFulano = new UsuarioBuilder().comLogin("fulano").comSenha("123teste").build();
 		usuarioCicrano = new UsuarioBuilder().comLogin("cicrano").comSenha("cicrano123").build();
 		usuarioBeltrano = new UsuarioBuilder().comLogin("beltrano").comSenha("beltrano123").build();

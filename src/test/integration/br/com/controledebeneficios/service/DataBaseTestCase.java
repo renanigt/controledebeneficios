@@ -24,7 +24,6 @@ public class DataBaseTestCase {
 		manager = factory.createEntityManager();
 		transaction = manager.getTransaction();
 		
-		deleteData();
 		startTransaction();
 	}
 
@@ -48,12 +47,6 @@ public class DataBaseTestCase {
 	
 	private void startTransaction() {
 		transaction.begin();
-	}
-
-	private void deleteData() {
-		startTransaction();
-		manager.createQuery("delete from Usuario").executeUpdate();
-		transaction.commit();
 	}
 	
 }

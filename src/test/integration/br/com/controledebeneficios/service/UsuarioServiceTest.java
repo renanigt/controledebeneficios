@@ -23,6 +23,9 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 	private Usuario usuarioCicrano;
 	private Usuario usuarioBeltrano;
 	
+	private Integer idValido;
+	private Integer idInvalido = -1;
+	
 	@Before
 	public void setUp() {
 		service = new UsuarioService(manager);
@@ -32,8 +35,10 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 	
 	@Test
 	public void deveriaPesquisarPorId() {
-		Usuario usuario = service.pesquisaPorId(usuarioFulano.getId());
+		Usuario usuarioInvalido = service.pesquisaPorId(idInvalido);
+		Usuario usuario = service.pesquisaPorId(idValido);
 		
+		assertThat(usuarioInvalido, is(Matchers.nullValue()));
 		assertThat(usuario, is(Matchers.notNullValue()));
 		assertThat(usuario.getLogin(), is("fulano"));
 		assertThat(usuario.getSenha(), is("123teste"));
@@ -54,7 +59,7 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 
 	@Test
 	public void deveriaAtualizarUsuario() {
-		Usuario usuario = service.pesquisaPorId(usuarioFulano.getId());
+		Usuario usuario = service.pesquisaPorId(idValido);
 		usuario.setSenha("123456");
 		
 		service.atualiza(usuario);
@@ -66,11 +71,9 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 	
 	@Test
 	public void deveriaRemoverUsuario() {
-		Usuario usuario = service.pesquisaPorId(usuarioFulano.getId());
-
 		service.delete(usuarioFulano);
 		
-		Usuario usuarioRetornado = service.pesquisaPorId(usuario.getId());
+		Usuario usuarioRetornado = service.pesquisaPorId(idValido);
 		
 		assertThat(service.lista().size(), is(2));
 		assertThat(usuarioRetornado, is(nullValue()));
@@ -91,6 +94,8 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 		for(Usuario usuario: usuarios) {
 			manager.persist(usuario);
 		}
+		
+		idValido = usuarioFulano.getId();
 	}
 	
 }

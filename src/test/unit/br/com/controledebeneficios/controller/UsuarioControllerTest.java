@@ -2,6 +2,7 @@ package br.com.controledebeneficios.controller;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -9,7 +10,6 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -54,7 +54,7 @@ public class UsuarioControllerTest {
 		controller.index();
 		
 		assertTrue("Deve conter lista de usuários", result.included().containsKey("usuarios"));
-		Assert.assertThat((List<Usuario>) result.included("usuarios"), containsInAnyOrder(usuarioRenan, usuarioIago));
+		assertThat((List<Usuario>) result.included("usuarios"), containsInAnyOrder(usuarioRenan, usuarioIago));
 	}
 
 	@Test
@@ -65,7 +65,7 @@ public class UsuarioControllerTest {
 		
 		verify(service).salvar(usuario);
 		
-		Assert.assertThat(result.included("sucesso").toString(), is("Usuário adicionado com sucesso."));
+		assertThat(result.included("sucesso").toString(), is("Usuário adicionado com sucesso."));
 	}
 	
 	@Test(expected = ValidationException.class)

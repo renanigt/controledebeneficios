@@ -31,8 +31,8 @@ public class UsuarioControllerTest {
 	
 	private UsuarioController controller;
 	
-	private Usuario usuarioRenan;
-	private Usuario usuarioIago;
+	private Usuario usuarioFulano;
+	private Usuario usuarioCicrano;
 	
 	@Before
 	public void setUp() {
@@ -42,19 +42,19 @@ public class UsuarioControllerTest {
 
 		controller = new UsuarioController(result, validator, service);
 		
-		usuarioRenan = new UsuarioBuilder().comId(1).comLogin("renanigt").comSenha("teste123").build();
-		usuarioIago= new UsuarioBuilder().comId(2).comLogin("iagota").comSenha("321teste").build();
+		usuarioFulano = new UsuarioBuilder().comId(1).comLogin("fulano").comSenha("teste123").build();
+		usuarioCicrano = new UsuarioBuilder().comId(2).comLogin("cicrano").comSenha("321teste").build();
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Test
 	public void deveriaAbrirInicialComTodosUsuarios() {
-		when(service.lista()).thenReturn(Arrays.asList(usuarioRenan, usuarioIago));
+		when(service.lista()).thenReturn(Arrays.asList(usuarioFulano, usuarioCicrano));
 		
 		controller.index();
 		
 		assertTrue("Deve conter lista de usuários", result.included().containsKey("usuarios"));
-		assertThat((List<Usuario>) result.included("usuarios"), containsInAnyOrder(usuarioRenan, usuarioIago));
+		assertThat((List<Usuario>) result.included("usuarios"), containsInAnyOrder(usuarioFulano, usuarioCicrano));
 	}
 
 	@Test
@@ -71,6 +71,15 @@ public class UsuarioControllerTest {
 	@Test(expected = ValidationException.class)
 	public void naoDeveriaSalvarUsuarioSemDados() {
 		Usuario usuario = new UsuarioBuilder().comLogin("").comSenha("").build();
+		
+		controller.adiciona(usuario);
+	}
+
+	@Test(expected = ValidationException.class)
+	public void naoDeveriaSalvarUsuarioComLoginExistente() {
+		Usuario usuario = new UsuarioBuilder().comLogin("fulano").comSenha("senha123").build();
+
+		when(service.pesquisaPorLogin(usuario.getLogin())).thenReturn(usuarioFulano);
 		
 		controller.adiciona(usuario);
 	}

@@ -45,6 +45,15 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 	}
 	
 	@Test
+	public void deveriaPesquisarPorLogin() {
+		Usuario usuario = service.pesquisaPorLogin(usuarioFulano.getLogin());
+		
+		assertThat(usuario, notNullValue());
+		assertThat(usuario.getLogin(), is(usuarioFulano.getLogin()));
+		assertThat(usuario.getSenha(), is(usuarioFulano.getSenha()));
+	}
+	
+	@Test
 	public void deveriaSalvarUsuario() {
 		Usuario usuario = new UsuarioBuilder().comLogin("renanigt").comSenha("teste123").build();
 		service.salvar(usuario);
@@ -52,7 +61,7 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 		Usuario usuarioRetornado = service.pesquisaPorId(usuario.getId());
 		
 		assertThat(service.lista().size(), is(4));
-		assertThat(usuarioRetornado, is(notNullValue()));
+		assertThat(usuarioRetornado, notNullValue());
 		assertThat(usuarioRetornado.getLogin(), is("renanigt"));
 		assertThat(usuarioRetornado.getSenha(), is("teste123"));
 	}

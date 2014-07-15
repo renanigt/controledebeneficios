@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import br.com.controledebeneficios.model.Usuario;
@@ -35,11 +36,25 @@ public class UsuarioService {
 	
 	@SuppressWarnings("unchecked")
 	public List<Usuario> lista() {
-		String hql = "from Usuario order by login";
+		String jpql = "from Usuario order by login";
 		
-		Query query = manager.createQuery(hql);
+		Query query = manager.createQuery(jpql);
 
 		return query.getResultList();
+	}
+
+	public Usuario pesquisaPorLogin(String login) {
+		String jpql = "from Usuario where login = :login";
+		
+		Query query = manager.createQuery(jpql);
+		
+		query.setParameter("login", login);
+		
+		try {
+			return (Usuario) query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 	
 }

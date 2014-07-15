@@ -46,8 +46,11 @@ public class UsuarioController {
 	
 	@Post("/usuario/novo/salvar")
 	public void adiciona(Usuario usuario) {
+		boolean loginExistente = service.pesquisaPorLogin(usuario.getLogin()) != null ? true : false;
+		
 		validator.addIf(isNullOrEmpty(usuario.getLogin()), new SimpleMessage("Login", "O Login não pode ser vazio."));
 		validator.addIf(isNullOrEmpty(usuario.getSenha()), new SimpleMessage("Senha", "A Senha não pode ser vazia."));
+		validator.addIf(loginExistente, new SimpleMessage("Login", "O Login já existe."));
 
 		validator.onErrorRedirectTo(this).novo();
 		

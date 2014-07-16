@@ -4,6 +4,9 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -82,6 +85,28 @@ public class UsuarioControllerTest {
 		when(service.pesquisaPorLogin(usuario.getLogin())).thenReturn(usuarioFulano);
 		
 		controller.adiciona(usuario);
+	}
+	
+	@Test
+	public void deveriaRemoverUsuario() {
+		when(service.pesquisaPorId(usuarioFulano.getId())).thenReturn(usuarioFulano);
+		
+		controller.delete(usuarioFulano.getId());
+		
+		verify(service).delete(usuarioFulano);
+		
+		assertThat(result.included("sucesso").toString(), is("Usuário removido com sucesso."));
+	}
+	
+	@Test
+	public void deveriaExibirMensagemAoTentarRemoverUsuarioInexistente() {
+		when(service.pesquisaPorId(anyInt())).thenReturn(null);
+		
+		controller.delete(anyInt());
+		
+		verify(service, never()).delete(any(Usuario.class));
+		
+		assertThat(result.included("sucesso").toString(), is("Usuário inexistente."));
 	}
 	
 }

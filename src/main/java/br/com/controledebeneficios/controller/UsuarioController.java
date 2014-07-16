@@ -32,6 +32,7 @@ public class UsuarioController {
 	 * @deprecated CDI eyes only
 	 */
 	public UsuarioController() {
+		this(null, null, null);
 	}
 
 	@Get("/usuario")
@@ -57,6 +58,20 @@ public class UsuarioController {
 		service.salvar(usuario);
 		
 		result.include("sucesso", "Usuário adicionado com sucesso.");
+	}
+
+	@Get("/usuario/deleta/{id}")
+	public void delete(Integer id) {
+		Usuario usuario = service.pesquisaPorId(id);
+		
+		if(usuario != null) {
+			service.delete(usuario);
+			result.include("sucesso", "Usuário removido com sucesso.");
+		} else {
+			result.include("sucesso", "Usuário inexistente.");
+		}
+
+		result.redirectTo(this).index();
 	}
 	
 }

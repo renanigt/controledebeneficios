@@ -20,7 +20,7 @@ public class Empresa {
 	private String nome;
 	@Column(columnDefinition="bigint(14)")
 	private Integer cnpj;
-	@OneToMany(mappedBy="empresa")
+	@OneToMany
 	private List<Funcionario> funcionarios;
 	@OneToOne(cascade=CascadeType.ALL)
 	private Usuario usuario;

@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -26,8 +25,6 @@ public class Funcionario {
 	private List<Beneficio> beneficios;
 	private Integer pontos;
 	private Integer saldo;
-	@ManyToOne
-	private Empresa empresa;
 	@OneToOne
 	private Usuario usuario;
 	
@@ -101,14 +98,6 @@ public class Funcionario {
 
 	public void setSaldo(Integer saldo) {
 		this.saldo = saldo;
-	}
-
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
 	}
 
 	public Usuario getUsuario() {

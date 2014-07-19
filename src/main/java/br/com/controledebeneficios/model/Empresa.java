@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Empresa {
@@ -18,6 +19,8 @@ public class Empresa {
 	private Integer cnpj;
 	@OneToMany
 	private List<Funcionario> funcionarios;
+	@OneToOne
+	private Usuario usuario;
 	
 	public Integer getId() {
 		return id;
@@ -49,6 +52,14 @@ public class Empresa {
 	
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 }

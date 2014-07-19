@@ -8,6 +8,7 @@ import javax.persistence.Persistence;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 
 public class DataBaseTestCase {
 
@@ -15,7 +16,8 @@ public class DataBaseTestCase {
 	private static EntityManagerFactory factory;
 	private EntityTransaction transaction;
 	
-	static {
+	@BeforeClass
+	public static void crateFactory() {
 		factory = Persistence.createEntityManagerFactory("default-test");
 	}
 	

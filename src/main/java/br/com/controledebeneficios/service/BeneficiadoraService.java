@@ -16,7 +16,6 @@ public class BeneficiadoraService {
 	 * @deprecated CDI eyes only
 	 */
 	public BeneficiadoraService() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Inject

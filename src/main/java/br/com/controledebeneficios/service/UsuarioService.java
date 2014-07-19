@@ -13,6 +13,12 @@ public class UsuarioService {
 
 	private EntityManager manager;
 	
+	/**
+	 * @deprecated CDI eyes only
+	 */
+	public UsuarioService() {
+	}
+	
 	@Inject
 	public UsuarioService(EntityManager manager) {
 		this.manager = manager;

@@ -12,7 +12,7 @@ public class Beneficiadora {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	private String nome;
-	private String tipoBeneficio;
+	private TipoBeneficio tipoBeneficio;
 	
 	public Integer getId() {
 		return id;
@@ -30,11 +30,11 @@ public class Beneficiadora {
 		this.nome = nome;
 	}
 
-	public String getTipoBeneficio() {
+	public TipoBeneficio getTipoBeneficio() {
 		return tipoBeneficio;
 	}
 
-	public void setTipoBeneficio(String tipoBeneficio) {
+	public void setTipoBeneficio(TipoBeneficio tipoBeneficio) {
 		this.tipoBeneficio = tipoBeneficio;
 	}
 	

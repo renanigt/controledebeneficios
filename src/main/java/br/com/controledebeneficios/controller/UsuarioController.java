@@ -55,7 +55,7 @@ public class UsuarioController {
 
 		validator.onErrorRedirectTo(this).novo();
 		
-		service.salvar(usuario);
+		service.salva(usuario);
 		
 		result.include("sucesso", "Usuário adicionado com sucesso.");
 	}

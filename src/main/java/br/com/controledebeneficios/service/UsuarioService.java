@@ -28,7 +28,7 @@ public class UsuarioService {
 		return manager.find(Usuario.class, id);
 	}
 
-	public void salvar(Usuario usuario) {
+	public void salva(Usuario usuario) {
 		manager.persist(usuario);
 	}
 	

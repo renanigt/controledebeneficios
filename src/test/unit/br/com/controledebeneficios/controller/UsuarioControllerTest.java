@@ -66,7 +66,7 @@ public class UsuarioControllerTest {
 		
 		controller.adiciona(usuario);
 		
-		verify(service).salvar(usuario);
+		verify(service).salva(usuario);
 		
 		assertThat(result.included("sucesso").toString(), is("Usuário adicionado com sucesso."));
 	}

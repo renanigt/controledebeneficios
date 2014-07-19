@@ -9,6 +9,11 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		
 		<class>br.com.controledebeneficios.model.Usuario</class>
+		<class>br.com.controledebeneficios.model.Funcionario</class>
+		<class>br.com.controledebeneficios.model.Endereco</class>
+		<class>br.com.controledebeneficios.model.Beneficio</class>
+		<class>br.com.controledebeneficios.model.Beneficiadora</class>
+		<class>br.com.controledebeneficios.model.Empresa</class>
 		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

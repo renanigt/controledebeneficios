@@ -1,9 +1,14 @@
 package br.com.controledebeneficios.service;
 
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.Assert.assertThat;
+
 import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Test;
 
 import br.com.controledebeneficios.builder.BeneficiadoraBuilder;
 import br.com.controledebeneficios.model.Beneficiadora;
@@ -18,13 +23,61 @@ public class BeneficiadoraServiceTest extends DataBaseTestCase {
 	private Beneficiadora unimed;
 	private Beneficiadora uniodonto;
 	
-	private Integer idValido;
+	private Integer idValidoUnimed;
 	
 	@Before
 	public void setUp() {
 		service = new BeneficiadoraService(manager);
 		
 		dadosIniciais();
+	}
+	
+	@Test
+	public void deveriaPesquisarBeneficiadoraPorId() {
+		Beneficiadora beneficiadora = service.pesquisarPorId(idValidoUnimed);
+		
+		assertThat(beneficiadora, notNullValue());
+		assertThat(beneficiadora.getNome(), is("Unimed"));
+		assertThat(beneficiadora.getTipoBeneficio(), is(TipoBeneficio.PLANO_SAUDE));
+	}
+
+	@Test
+	public void deveriaListarTodasBeneficiadoras() {
+		assertThat(service.lista().size(), is(4));
+	}
+	
+	@Test
+	public void deveriaSalvarBeneficiadora() {
+		Beneficiadora beneficiadora = new BeneficiadoraBuilder().comNome("Hapvida").comTipoBeneficio(TipoBeneficio.PLANO_SAUDE).build();
+		
+		service.salva(beneficiadora);
+
+		Beneficiadora beneficiadoraRetornada = service.pesquisarPorId(beneficiadora.getId());
+		
+		assertThat(service.lista().size(), is(5));
+		assertThat(beneficiadoraRetornada.getNome(), is("Hapvida"));
+		assertThat(beneficiadoraRetornada.getTipoBeneficio(), is(TipoBeneficio.PLANO_SAUDE));
+	}
+	
+	@Test
+	public void deveriaAtualizarBeneficiadora() {
+		Beneficiadora beneficiadora = new BeneficiadoraBuilder().comId(idValidoUnimed).comNome("Unimed Atualizada")
+				.comTipoBeneficio(TipoBeneficio.PLANO_ODONTOLOGICO).build();
+		
+		service.atualiza(beneficiadora);
+
+		Beneficiadora beneficiadoraAtualizada = service.pesquisarPorId(idValidoUnimed);
+		
+		assertThat(service.lista().size(), is(4));
+		assertThat(beneficiadoraAtualizada.getNome(), is(beneficiadora.getNome()));
+		assertThat(beneficiadoraAtualizada.getTipoBeneficio(), is(beneficiadora.getTipoBeneficio()));
+	}
+	
+	@Test
+	public void deveriaRemoverBeneficiadora() {
+		service.deleta(unimed);
+
+		assertThat(service.lista().size(), is(3));
 	}
 	
 	private void dadosIniciais() {
@@ -41,7 +94,7 @@ public class BeneficiadoraServiceTest extends DataBaseTestCase {
 			manager.persist(beneficiadora);
 		}
 		
-		idValido = unimed.getId();
+		idValidoUnimed = unimed.getId();
 	}
 	
 }

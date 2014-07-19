@@ -48,7 +48,8 @@ public class BeneficiadoraServiceTest extends DataBaseTestCase {
 	
 	@Test
 	public void deveriaSalvarBeneficiadora() {
-		Beneficiadora beneficiadora = new BeneficiadoraBuilder().comNome("Hapvida").comTipoBeneficio(TipoBeneficio.PLANO_SAUDE).build();
+		Beneficiadora beneficiadora = new BeneficiadoraBuilder().comNome("Hapvida")
+				.comTipoBeneficio(TipoBeneficio.PLANO_SAUDE).build();
 		
 		service.salva(beneficiadora);
 

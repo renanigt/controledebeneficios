@@ -2,6 +2,8 @@ package br.com.controledebeneficios.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,10 +18,11 @@ public class Empresa {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	private String nome;
+	@Column(columnDefinition="bigint(14)")
 	private Integer cnpj;
-	@OneToMany
+	@OneToMany(mappedBy="empresa")
 	private List<Funcionario> funcionarios;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private Usuario usuario;
 	
 	public Integer getId() {

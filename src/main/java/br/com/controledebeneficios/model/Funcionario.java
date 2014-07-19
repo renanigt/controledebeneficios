@@ -3,8 +3,10 @@ package br.com.controledebeneficios.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -12,6 +14,8 @@ import javax.persistence.OneToOne;
 public class Funcionario {
 
 	@Id
+	private Integer id;
+	@Column(nullable=false, unique=true)
 	private Integer matricula;
 	private String nome;
 	private Date dataNascimento;
@@ -22,9 +26,19 @@ public class Funcionario {
 	private List<Beneficio> beneficios;
 	private Integer pontos;
 	private Integer saldo;
+	@ManyToOne
+	private Empresa empresa;
 	@OneToOne
 	private Usuario usuario;
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public Integer getMatricula() {
 		return matricula;
 	}
@@ -87,6 +101,14 @@ public class Funcionario {
 
 	public void setSaldo(Integer saldo) {
 		this.saldo = saldo;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	public Usuario getUsuario() {

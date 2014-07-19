@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Usuario {
@@ -15,6 +16,8 @@ public class Usuario {
 	@Column(unique = true)
 	private String login;
 	private String senha;
+	@OneToOne(mappedBy = "usuario")
+	private Funcionario funcionario;
 
 	public Integer getId() {
 		return id;
@@ -38,6 +41,14 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 	
 }

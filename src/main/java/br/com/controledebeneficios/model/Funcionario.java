@@ -22,6 +22,8 @@ public class Funcionario {
 	private List<Beneficio> beneficios;
 	private Integer pontos;
 	private Integer saldo;
+	@OneToOne
+	private Usuario usuario;
 	
 	public Integer getMatricula() {
 		return matricula;
@@ -85,6 +87,14 @@ public class Funcionario {
 
 	public void setSaldo(Integer saldo) {
 		this.saldo = saldo;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 }

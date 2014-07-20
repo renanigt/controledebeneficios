@@ -47,6 +47,22 @@ public class BeneficiadoraServiceTest extends DataBaseTestCase {
 	}
 	
 	@Test
+	public void deveriaPesquisarBeneficiadoraPorNome() {
+		Beneficiadora beneficiadora = new BeneficiadoraBuilder().comNome("uNI").build();
+		List<Beneficiadora> listaBeneficiadora = service.pesquisarBeneficiadora(beneficiadora);
+		
+		assertThat(listaBeneficiadora.size(), is(2));
+	}
+
+	@Test
+	public void deveriaPesquisarBeneficiadoraPorTipoBeneficio() {
+		Beneficiadora beneficiadora = new BeneficiadoraBuilder().comTipoBeneficio(TipoBeneficio.PLANO_SAUDE).build();
+		List<Beneficiadora> listaBeneficiadora = service.pesquisarBeneficiadora(beneficiadora);
+		
+		assertThat(listaBeneficiadora.size(), is(1));
+	}
+	
+	@Test
 	public void deveriaSalvarBeneficiadora() {
 		Beneficiadora beneficiadora = new BeneficiadoraBuilder().comNome("Hapvida")
 				.comTipoBeneficio(TipoBeneficio.PLANO_SAUDE).build();

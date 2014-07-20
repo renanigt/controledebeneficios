@@ -37,8 +37,7 @@ public class BeneficiadoraServiceTest extends DataBaseTestCase {
 		Beneficiadora beneficiadora = service.pesquisarPorId(idValidoUnimed);
 		
 		assertThat(beneficiadora, notNullValue());
-		assertThat(beneficiadora.getNome(), is("Unimed"));
-		assertThat(beneficiadora.getTipoBeneficio(), is(TipoBeneficio.PLANO_SAUDE));
+		verificaBeneficiadora(beneficiadora, unimed);
 	}
 
 	@Test
@@ -72,8 +71,7 @@ public class BeneficiadoraServiceTest extends DataBaseTestCase {
 		Beneficiadora beneficiadoraRetornada = service.pesquisarPorId(beneficiadora.getId());
 		
 		assertThat(service.lista().size(), is(5));
-		assertThat(beneficiadoraRetornada.getNome(), is("Hapvida"));
-		assertThat(beneficiadoraRetornada.getTipoBeneficio(), is(TipoBeneficio.PLANO_SAUDE));
+		verificaBeneficiadora(beneficiadoraRetornada, beneficiadora);
 	}
 	
 	@Test
@@ -86,8 +84,7 @@ public class BeneficiadoraServiceTest extends DataBaseTestCase {
 		Beneficiadora beneficiadoraAtualizada = service.pesquisarPorId(idValidoUnimed);
 		
 		assertThat(service.lista().size(), is(4));
-		assertThat(beneficiadoraAtualizada.getNome(), is(beneficiadora.getNome()));
-		assertThat(beneficiadoraAtualizada.getTipoBeneficio(), is(beneficiadora.getTipoBeneficio()));
+		verificaBeneficiadora(beneficiadoraAtualizada, beneficiadora);
 	}
 	
 	@Test
@@ -95,6 +92,11 @@ public class BeneficiadoraServiceTest extends DataBaseTestCase {
 		service.deleta(unimed);
 
 		assertThat(service.lista().size(), is(3));
+	}
+	
+	private void verificaBeneficiadora(Beneficiadora actual, Beneficiadora expected) {
+		assertThat(actual.getNome(), is(expected.getNome()));
+		assertThat(actual.getTipoBeneficio(), is(expected.getTipoBeneficio()));
 	}
 	
 	private void dadosIniciais() {

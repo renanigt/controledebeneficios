@@ -40,8 +40,7 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 		
 		assertThat(usuarioInvalido, is(Matchers.nullValue()));
 		assertThat(usuario, is(Matchers.notNullValue()));
-		assertThat(usuario.getLogin(), is("fulano"));
-		assertThat(usuario.getSenha(), is("123teste"));
+		verificaUsuario(usuario, usuarioFulano);
 	}
 	
 	@Test
@@ -49,8 +48,7 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 		Usuario usuario = service.pesquisaPorLogin(usuarioFulano.getLogin());
 		
 		assertThat(usuario, notNullValue());
-		assertThat(usuario.getLogin(), is(usuarioFulano.getLogin()));
-		assertThat(usuario.getSenha(), is(usuarioFulano.getSenha()));
+		verificaUsuario(usuario, usuarioFulano);
 	}
 	
 	@Test
@@ -62,8 +60,7 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 		
 		assertThat(service.lista().size(), is(4));
 		assertThat(usuarioRetornado, notNullValue());
-		assertThat(usuarioRetornado.getLogin(), is("renanigt"));
-		assertThat(usuarioRetornado.getSenha(), is("teste123"));
+		verificaUsuario(usuarioRetornado, usuario);
 	}
 
 	@Test
@@ -76,8 +73,7 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 		
 		assertThat(service.lista().size(), is(3));
 		assertThat(usuarioAtualizado, is(notNullValue()));
-		assertThat(usuarioAtualizado.getLogin(), is(usuario.getLogin()));
-		assertThat(usuarioAtualizado.getSenha(), is(usuario.getSenha()));
+		verificaUsuario(usuarioAtualizado, usuario);
 	}
 	
 	@Test
@@ -93,6 +89,11 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 	@Test
 	public void deveriaListarTodosOsUsuarios() {
 		assertThat(service.lista().size(), is(3));
+	}
+	
+	private void verificaUsuario(Usuario actual, Usuario expected) {
+		assertThat(actual.getLogin(), is(expected.getLogin()));
+		assertThat(actual.getSenha(), is(expected.getSenha()));
 	}
 	
 	private void dadosIniciais() {

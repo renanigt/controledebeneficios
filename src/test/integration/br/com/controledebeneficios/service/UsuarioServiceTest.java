@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import br.com.controledebeneficios.builder.UsuarioBuilder;
 import br.com.controledebeneficios.model.Usuario;
+import br.com.controledebeneficios.service.impl.UsuarioServiceImpl;
 
 public class UsuarioServiceTest extends DataBaseTestCase {
 
@@ -28,7 +29,7 @@ public class UsuarioServiceTest extends DataBaseTestCase {
 	
 	@Before
 	public void setUp() {
-		service = new UsuarioService(manager);
+		service = new UsuarioServiceImpl(manager);
 		
 		dadosIniciais();
 	}

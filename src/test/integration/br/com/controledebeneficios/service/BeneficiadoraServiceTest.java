@@ -13,6 +13,7 @@ import org.junit.Test;
 import br.com.controledebeneficios.builder.BeneficiadoraBuilder;
 import br.com.controledebeneficios.model.Beneficiadora;
 import br.com.controledebeneficios.model.TipoBeneficio;
+import br.com.controledebeneficios.service.impl.BeneficiadoraServiceImpl;
 
 public class BeneficiadoraServiceTest extends DataBaseTestCase {
 
@@ -27,7 +28,7 @@ public class BeneficiadoraServiceTest extends DataBaseTestCase {
 	
 	@Before
 	public void setUp() {
-		service = new BeneficiadoraService(manager);
+		service = new BeneficiadoraServiceImpl(manager);
 		
 		dadosIniciais();
 	}

@@ -51,7 +51,7 @@ public class UsuarioControllerTest {
 	
 	@SuppressWarnings("unchecked")
 	@Test
-	public void deveriaAbrirInicialComTodosUsuarios() {
+	public void deveriaAbrirPaginaInicialComTodosUsuarios() {
 		when(service.lista()).thenReturn(Arrays.asList(usuarioFulano, usuarioCicrano));
 		
 		controller.index();

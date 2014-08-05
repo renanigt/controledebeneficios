@@ -106,7 +106,7 @@ public class UsuarioControllerTest {
 		
 		verify(service, never()).delete(any(Usuario.class));
 		
-		assertThat(result.included("sucesso").toString(), is("Usuário inexistente."));
+		assertThat(result.included("erro").toString(), is("Usuário inexistente."));
 	}
 	
 }

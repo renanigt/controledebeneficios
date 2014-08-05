@@ -68,7 +68,7 @@ public class UsuarioController {
 			service.delete(usuario);
 			result.include("sucesso", "Usuário removido com sucesso.");
 		} else {
-			result.include("sucesso", "Usuário inexistente.");
+			result.include("erro", "Usuário inexistente.");
 		}
 
 		result.redirectTo(this).index();

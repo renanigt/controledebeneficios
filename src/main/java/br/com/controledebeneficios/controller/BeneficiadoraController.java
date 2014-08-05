@@ -50,4 +50,18 @@ public class BeneficiadoraController {
 		result.include("sucesso", "Beneficiadora adicionada com sucesso.");
 	}
 
+	@Get("/beneficiadora/deleta/{id}")
+	public void delete(Integer id) {
+		Beneficiadora beneficiadora = service.pesquisarPorId(id);
+		
+		if(beneficiadora != null) {
+			service.deleta(beneficiadora);
+			result.include("sucesso", "Beneficiadora removida com sucesso.");
+		} else {
+			result.include("erro", "Beneficiadora inexistente.");
+		}
+		
+		
+	}
+
 }

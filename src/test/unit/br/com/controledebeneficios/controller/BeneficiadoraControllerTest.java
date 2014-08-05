@@ -4,6 +4,10 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -12,7 +16,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import br.com.caelum.vraptor.util.test.MockResult;
@@ -64,7 +67,7 @@ public class BeneficiadoraControllerTest {
 		
 		controller.adiciona(beneficiadora);
 		
-		Mockito.verify(service).salva(beneficiadora);
+		verify(service).salva(beneficiadora);
 		
 		assertThat(result.included("sucesso").toString(), is("Beneficiadora adicionada com sucesso."));
 	}
@@ -74,6 +77,28 @@ public class BeneficiadoraControllerTest {
 		Beneficiadora beneficiadora = new BeneficiadoraBuilder().comNome("").comTipoBeneficio(null).build();
 		
 		controller.adiciona(beneficiadora);
+	}
+	
+	@Test
+	public void deveriaRemoverBeneficiadora() {
+		when(service.pesquisarPorId(unimed.getId())).thenReturn(unimed);
+		
+		controller.delete(unimed.getId());
+		
+		verify(service).deleta(unimed);
+		
+		assertThat(result.included("sucesso").toString(), is("Beneficiadora removida com sucesso."));
+	}
+
+	@Test
+	public void deveriaExibirMensagemAoTentarRemoverBeneficiadoraInexistente() {
+		when(service.pesquisarPorId(anyInt())).thenReturn(null);
+		
+		controller.delete(anyInt());
+		
+		verify(service, never()).deleta(any(Beneficiadora.class));
+		
+		assertThat(result.included("erro").toString(), is("Beneficiadora inexistente."));
 	}
 	
 }

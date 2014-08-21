@@ -40,9 +40,7 @@ public class BeneficiadoraController {
 
 	@Post("/beneficiadora/novo/salvar")
 	public void adiciona(Beneficiadora beneficiadora) {
-		validator.addIf(Strings.isNullOrEmpty(beneficiadora.getNome()), new SimpleMessage("Nome", "Nome não pode ser vazio."));
-		validator.addIf(beneficiadora.getTipoBeneficio() == null, new SimpleMessage("Tipo de Beneficio", "Tipo de Beneficio não pode ser vazio."));
-		
+		validaBeneficiadora(beneficiadora);
 		validator.onErrorForwardTo(this).index();
 		
 		service.salva(beneficiadora);
@@ -64,4 +62,19 @@ public class BeneficiadoraController {
 		
 	}
 
+	@Post("/beneficiadora/novo/atualizar")
+	public void atualiza(Beneficiadora beneficiadora) {
+		validaBeneficiadora(beneficiadora);
+		validator.onErrorForwardTo(this).index();
+		
+		service.atualiza(beneficiadora);
+		
+		result.include("sucesso", "Beneficiadora atualizada com sucesso.");
+	}
+
+	private void validaBeneficiadora(Beneficiadora beneficiadora) {
+		validator.addIf(Strings.isNullOrEmpty(beneficiadora.getNome()), new SimpleMessage("Nome", "Nome não pode ser vazio."));
+		validator.addIf(beneficiadora.getTipoBeneficio() == null, new SimpleMessage("Tipo de Beneficio", "Tipo de Beneficio não pode ser vazio."));
+	}
+	
 }

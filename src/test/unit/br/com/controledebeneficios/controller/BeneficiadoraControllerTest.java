@@ -101,4 +101,24 @@ public class BeneficiadoraControllerTest {
 		assertThat(result.included("erro").toString(), is("Beneficiadora inexistente."));
 	}
 	
+	@Test
+	public void deveriaAlterarBeneficiadora() {
+		Beneficiadora beneficiadora = new BeneficiadoraBuilder().comNome("Uniodonto").
+				comTipoBeneficio(TipoBeneficio.PLANO_ODONTOLOGICO).build();
+		
+		controller.atualiza(beneficiadora);
+		
+		verify(service).atualiza(beneficiadora);
+		
+		assertThat(result.included("sucesso").toString(), is("Beneficiadora atualizada com sucesso."));
+	}
+
+	@Test(expected=ValidationException.class)
+	public void naoDeveriaAlterarBeneficiadoraSemDados() {
+		Beneficiadora beneficiadora = new BeneficiadoraBuilder().comNome("").
+				comTipoBeneficio(null).build();
+		
+		controller.atualiza(beneficiadora);
+	}
+	
 }

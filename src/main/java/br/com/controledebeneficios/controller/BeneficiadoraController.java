@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import com.google.common.base.Strings;
 
+import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
@@ -12,6 +13,7 @@ import br.com.caelum.vraptor.validator.Validator;
 import br.com.controledebeneficios.model.Beneficiadora;
 import br.com.controledebeneficios.service.BeneficiadoraService;
 
+@Controller
 public class BeneficiadoraController {
 
 	private Result result;

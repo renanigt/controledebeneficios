@@ -8,6 +8,11 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
+
 import br.com.controledebeneficios.model.Beneficiadora;
 import br.com.controledebeneficios.service.BeneficiadoraService;
 
@@ -49,24 +54,17 @@ public class BeneficiadoraServiceImpl implements BeneficiadoraService {
 	}
 
 	public List<Beneficiadora> pesquisarBeneficiadora(Beneficiadora beneficiadora) {
-		boolean contemNome = !isNullOrEmpty(beneficiadora.getNome());
-		boolean contemTipoBeneficio = beneficiadora.getTipoBeneficio() != null;
+		Session session = manager.unwrap(Session.class);
 		
-		String jpql = "from Beneficiadora where 1=1";
-		
-		jpql += contemNome ? " and nome like :nome" : "";
-		jpql += contemTipoBeneficio ? " and tipoBeneficio = :tipoBeneficio" : "";
-		
-		TypedQuery<Beneficiadora> query = manager.createQuery(jpql, Beneficiadora.class);
-		
-		if(contemNome) {
-			query.setParameter("nome", "%" + beneficiadora.getNome() + "%");
+		Criteria criteria = session.createCriteria(Beneficiadora.class);
+		if(beneficiadora.getNome() != null) {
+			criteria.add(Restrictions.ilike("nome", beneficiadora.getNome(), MatchMode.ANYWHERE));
 		}
-		if(contemTipoBeneficio) {
-			query.setParameter("tipoBeneficio", beneficiadora.getTipoBeneficio());
+		if(beneficiadora.getTipoBeneficio() != null) {
+			criteria.add(Restrictions.eq("tipoBeneficio", beneficiadora.getTipoBeneficio()));
 		}
 		
-		return query.getResultList();
+		return criteria.list();
 	}
 	
 }

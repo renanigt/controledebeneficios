@@ -1,12 +1,9 @@
 package br.com.controledebeneficios.service.impl;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
-
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -23,7 +20,7 @@ public class BeneficiadoraServiceImpl implements BeneficiadoraService {
 	/**
 	 * @deprecated CDI eyes only
 	 */
-	public BeneficiadoraServiceImpl() {
+	protected BeneficiadoraServiceImpl() {
 	}
 
 	@Inject

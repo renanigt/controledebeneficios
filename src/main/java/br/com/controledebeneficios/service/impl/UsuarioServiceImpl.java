@@ -17,7 +17,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	/**
 	 * @deprecated CDI eyes only
 	 */
-	public UsuarioServiceImpl() {
+	protected UsuarioServiceImpl() {
 	}
 	
 	@Inject

@@ -19,7 +19,7 @@ public class IndexController {
 	/**
 	 * @deprecated CDI eyes only
 	 */
-	public IndexController() {
+	protected IndexController() {
 		this(null);
 	}
 	

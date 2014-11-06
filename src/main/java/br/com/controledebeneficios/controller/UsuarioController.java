@@ -31,7 +31,7 @@ public class UsuarioController {
 	/**
 	 * @deprecated CDI eyes only
 	 */
-	public UsuarioController() {
+	protected UsuarioController() {
 		this(null, null, null);
 	}
 

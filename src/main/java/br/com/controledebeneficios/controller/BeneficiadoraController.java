@@ -31,7 +31,7 @@ public class BeneficiadoraController {
 	/**
 	 * @deprecated CDI eyes only
 	 */
-	public BeneficiadoraController() {
+	protected BeneficiadoraController() {
 		this(null, null, null);
 	}
 	
